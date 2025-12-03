@@ -37,7 +37,24 @@
        (filter is-half-copy?)
        (reduce +)))
 
+(defn number-has-repetitions? [value]
+  (let [str-value (str value)
+        half-length (int (/ (count str-value) 2))]
+    (some true?
+          (for [i (range 1 (inc half-length))]
+            (empty? (str/split str-value (re-pattern (subs str-value 0 i))))))))
+
+(defn part-2 [puzzle-input]
+  (->> puzzle-input
+       pre-process
+       generate-ranges
+       flatten
+       (filter #(>= %1 10))
+       (filter number-has-repetitions?)
+       (reduce +)))
+
 #_(do
     (def puzzle-sample-input (slurp "inputs/02_sample.txt"))
     (def puzzle-input (slurp "inputs/02.txt"))
-    (println "Part 1:" (part-1 puzzle-input)))
+    (println "Part 1:" (time (part-1 puzzle-input)))
+    (println "Part 2:" (time (part-2 puzzle-input))))
