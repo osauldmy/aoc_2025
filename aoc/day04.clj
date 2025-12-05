@@ -5,10 +5,8 @@
   (filter some?
           (for [h (range (dec y) (+ 2 y))
                 w (range (dec x) (+ 2 x))]
-            (when (every? true? [(>= h 0)
-                                 (< h height)
-                                 (>= w 0)
-                                 (< w width)
+            (when (every? true? [(<= 0 h (dec height))
+                                 (<= 0 w (dec width))
                                  (not= [y x] [h w])])
               [h w]))))
 
