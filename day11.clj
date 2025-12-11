@@ -13,8 +13,8 @@
        str/split-lines
        (map #(str/split % #": "))
        (reduce
-         (fn [m [k v]]
-           (assoc m k (str/split v #" "))) {})
+        (fn [m [k v]]
+          (assoc m k (str/split v #" "))) {})
        (solve "you")
        flatten
        count))
