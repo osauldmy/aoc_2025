@@ -1,10 +1,10 @@
 (ns day11
   (:require [clojure.string :as str]))
 
-(defn solve [k m]
+(defn solve-1 [k m]
   (if (contains? m k)
     (for [x (get m k)]
-      (solve x m))
+      (solve-1 x m))
     (when (= k "out")
       true)))
 
@@ -15,7 +15,7 @@
        (reduce
         (fn [m [k v]]
           (assoc m k (str/split v #" "))) {})
-       (solve "you")
+       (solve-1 "you")
        flatten
        count))
 
