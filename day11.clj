@@ -25,8 +25,9 @@
      (cond
        (and (= k "out") has-fft has-dac) 1
        (not= (contains? m k)) (throw (AssertionError. "Unreachable branch"))
-       :else (reduce +
-                     (map #(solve-2 (or has-fft (= % "fft")) (or has-dac (= % "dac")) % m) (get m k)))))))
+       :else (->> (get m k)
+                  (map #(solve-2 (or has-fft (= % "fft")) (or has-dac (= % "dac")) % m))
+                  (reduce +))))))
 
 (defn part-2 [puzzle-input]
   (->> puzzle-input
